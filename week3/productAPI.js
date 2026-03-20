@@ -14,29 +14,6 @@ productApp.post("/products",async(req,res)=>{
      res.status(200).json({message:"Product Created"})
 })
 
-//to authorize the products
-productApp.post("/auth",async(req,res)=>{
-    const {productid,productName}=req.body
-    const product=await ProductModel.findOne({productid:productid})
-    if(product==null){
-      return res.status(400).json({message:"Invalid Product"})
-    }
-      const result=await compare(productName,product.productName)
-
-  if(result==false){
-   return res.status(400).json({message:"Invalid product Name"}) };
-const signedToken=sign({productid:product.productid},"product",{expiresIn:"1h"})
-    //send token in res
-    //store token as http only cookie
-    res.cookie("token",signedToken,{
-      httpOnly:true,
-      sameSite:"lax",
-      secure:false
-    })
-
-
-    res.status(200).json({message:"Product Inserted",payload:product})
-   }) 
 
 //to read products
 //protected route
