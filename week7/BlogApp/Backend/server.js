@@ -13,50 +13,36 @@ config();
 
 const app = exp();
 
-// middleware
 app.use(exp.json());
 app.use(cookieParser());
 
-//CORS
 app.use(
   cors({
-    origin: "https://atp-1.onrender.com",
+    origin: [
+      "http://localhost:5173",
+      "https://atp-theta.vercel.app",
+    ],
     credentials: true,
-  }),
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  })
 );
 
-//handle preflight
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,POST,PUT,PATCH,DELETE,OPTIONS",
-  );
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
-
-// routes
 app.use("/user-api", userApp);
 app.use("/admin-api", adminApp);
 app.use("/author-api", authorApp);
 app.use("/common-api", commonApp);
 
-// 404
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-// DB + server
 connect(process.env.DB_URL)
   .then(() => {
-    console.log("Database connected");
-    app.listen(process.env.PORT || 4000, () => console.log("Server running"));
+    const PORT = process.env.PORT || 4000;
+    app.listen(PORT, () => {
+      console.log("Server running");
+    });
   })
-  .catch((err) => console.log("DB error:", err));
+  .catch((err) => {
+    console.log("DB error:", err);
+  });
