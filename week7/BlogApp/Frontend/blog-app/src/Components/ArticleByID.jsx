@@ -51,7 +51,7 @@ function ArticleByID() {
 
       try {
         const res = await axios.get(
-          `http://localhost:4000/user-api/article/${id}`,
+          `https://atp-1.onrender.com/user-api/article/${id}`,
           { withCredentials: true },
         );
 
@@ -120,7 +120,7 @@ function ArticleByID() {
     commentObj.articleId = article._id;
     console.log(commentObj);
     let res = await axios.put(
-      "http://localhost:4000/user-api/articles",
+      "https://atp-1.onrender.com/user-api/articles",
       commentObj,
       { withCredentials: true },
     );
@@ -144,7 +144,7 @@ function ArticleByID() {
         <h1 className={`${articleMainTitle} uppercase`}>{article.title}</h1>
 
         <div className={articleAuthorRow}>
-          <div className={authorInfo}>✍️ {user?.role}</div>
+          <div className={authorInfo}>{user?.role}</div>
 
           <div>{formatDate(article.createdAt)}</div>
         </div>
