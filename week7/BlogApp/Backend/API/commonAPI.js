@@ -50,12 +50,11 @@ commonApp.post("/login",async(req,res)=>
     //create jwt token
     const signedToken=await sign({id:user._id,email:email,role:user.role},process.env.SECRET_KEY,{expiresIn:"1h"})
     //store token in the cookie
-    res.cookie("token",signedToken,
-        {
-            httpOnly:true,
-            secure:false,
-            sameSite:"lax"
-        }
+res.cookie("token", signedToken, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"
+});
     )
     //remove password from user document
     const userObj=user.toObject();
