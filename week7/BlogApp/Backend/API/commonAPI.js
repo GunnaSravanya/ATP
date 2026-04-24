@@ -12,21 +12,32 @@ const { sign } = jwt;
 export const commonApp = exp.Router();
 
 commonApp.post("/users", async (req, res) => {
-  const newUser = req.body;
+  try {
+    const newUser = req.body;
 
-  let allowedRoles = ["USER", "AUTHOR"];
-  if (!allowedRoles.includes(newUser.role)) {
-    return res.status(400).json({ message: "Invalid role" });
+    let allowedRoles = ["USER", "AUTHOR"];
+    if (!allowedRoles.includes(newUser.role)) {
+      return res.status(400).json({ message: "Invalid role" });
+    }
+
+    if (!newUser.email || !newUser.password) {
+      return res.status(400).json({ message: "Missing fields" });
+    }
+
+    newUser.password = await hash(newUser.password, 12);
+
+    const newUserDoc = new UserModel(newUser);
+    await newUserDoc.save();
+
+    res.status(201).json({ message: "User Created" });
+  } catch (err) {
+    console.log("REGISTER ERROR:", err);
+    res.status(500).json({
+      message: "Server error during registration",
+      error: err.message
+    });
   }
-
-  newUser.password = await hash(newUser.password, 12);
-
-  const newUserDoc = new UserModel(newUser);
-  await newUserDoc.save();
-
-  res.status(201).json({ message: "User Created" });
 });
-
 commonApp.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
