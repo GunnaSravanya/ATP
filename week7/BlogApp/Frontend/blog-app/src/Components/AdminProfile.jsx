@@ -20,7 +20,7 @@ function AdminProfile() {
 
   const fetchUsers = async () => {
     try {
-      let res = await axios.get("http://localhost:4000/admin-api/emails", {
+      let res = await axios.get("https://atp-1.onrender.com/admin-api/emails", {
         withCredentials: true,
       });
 
@@ -40,9 +40,9 @@ function AdminProfile() {
   const toggleStatus = async (user) => {
     try {
       await axios.put(
-        "http://localhost:4000/admin-api/userStatus",
+        "https://atp-1.onrender.com/admin-api/userStatus",
         {
-          email: user.email, // ✅ FIXED (was userId before)
+          email: user.email, //FIXED (was userId before)
           isUserActive: !user.isUserActive,
         },
         { withCredentials: true },
@@ -63,7 +63,7 @@ function AdminProfile() {
       ) : (
         list.map((user) => (
           <div
-            key={user.email} // ✅ unique key fix
+            key={user.email} // unique key fix
             className="border p-4 mb-3 rounded flex justify-between items-center"
           >
             <div>
