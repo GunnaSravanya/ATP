@@ -34,7 +34,7 @@ function Register() {
       console.log(userObj)
       //make http request to create user
       let res = await axios.post(
-        "http://localhost:4000/common-api/users",
+        "https://atp-1.onrender.com/common-api/users",
         userObj
       );
       
