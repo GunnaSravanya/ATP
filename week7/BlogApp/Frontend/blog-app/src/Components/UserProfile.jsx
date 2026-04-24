@@ -29,7 +29,7 @@ function UserProfile() {
       try {
         //read articles of all authors
         let res = await axios.get(
-          "http://localhost:4000/user-api/articles",
+          "https://atp-1.onrender.com/user-api/articles",
           { withCredentials: true },
         );
         //update articles state
