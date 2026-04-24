@@ -34,7 +34,7 @@ function AuthorArticles() {
         setLoading(true);
         //read articles of current author
         let res = await axios.get(
-          "http://localhost:4000/author-api/article",
+          "https://atp-1.onrender.com/author-api/article",
           { withCredentials: true },
         );
         if (res.status === 200) {
