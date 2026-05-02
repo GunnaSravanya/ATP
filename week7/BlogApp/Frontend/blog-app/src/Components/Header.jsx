@@ -7,7 +7,7 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = async (e) => {
-    e.preventDefault(); // 🔥 stop NavLink default behavior
+    e.preventDefault(); 
     await logout();
     navigate("/login");
   };
