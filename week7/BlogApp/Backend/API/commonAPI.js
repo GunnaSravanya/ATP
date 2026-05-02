@@ -39,6 +39,7 @@ commonApp.post("/users", async (req, res) => {
   }
 });
 commonApp.post("/login", async (req, res) => {
+  console.log("login route hit");
   const { email, password } = req.body;
 
   const user = await UserModel.findOne({ email });
