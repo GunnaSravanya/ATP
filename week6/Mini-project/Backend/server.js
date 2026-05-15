@@ -8,7 +8,8 @@ config();
 const app=exp()
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://atp-f1wi.vercel.app/"],
+    withCredentials:true,
   }),
 );
 app.use(exp.json())
