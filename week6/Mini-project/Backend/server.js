@@ -8,7 +8,7 @@ config();
 const app=exp()
 app.use(
   cors({
-    origin: ["https://atp-f1wi.vercel.app/"],
+    origin: ["https://atp-f1wi.vercel.app"],
     withCredentials:true,
   }),
 );
