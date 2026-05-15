@@ -33,7 +33,7 @@ function EditEmployee() {
       try {
         //console.log(modifiedEmp);
         const res = await axios.put(
-          `http://localhost:3000/employee-api/employee/${state._id}`,modifiedEmp,
+          `https://atp-3-masc.onrender.com/employee-api/employee/${state._id}`,modifiedEmp,
         );
         if (res.status === 200) {
           //navigate to list of emp
