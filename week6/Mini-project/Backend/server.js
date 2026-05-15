@@ -1,8 +1,10 @@
 import exp from "express";
+import {config} from "dotenv";
 import {connect} from "mongoose";
 import cookieParser from "cookie-parser";
 import {employee} from "./API/employee.js";
 import cors from "cors";
+config();
 const app=exp()
 app.use(
   cors({
@@ -12,11 +14,11 @@ app.use(
 app.use(exp.json())
 
 app.use(cookieParser())
-let port=3000
+let port=process.env.PORT
 app.use("/employee-api", employee);
 async function connectDB(){
     try{
-        await connect("mongodb://localhost:27017/mini")
+        await connect(process.env.DB_URL)
         console.log("mongodb connected")
         app.listen(port,()=>console.log(`server running on ${port}`))
         
