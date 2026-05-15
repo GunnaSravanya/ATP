@@ -9,7 +9,7 @@ const app=exp()
 app.use(
   cors({
     origin: ["https://atp-f1wi.vercel.app"],
-    withCredentials:true,
+    credentials:true,
   }),
 );
 app.use(exp.json())
